@@ -116,6 +116,7 @@ function parseAgentFile(filePath: string): ExpertDef | null {
 // 提示词是内容，不写在代码里。中文版不翻译原版提示词，
 // 而是在原版英文提示词末尾追加一段中文语言规则（主智能体和专家共用）。
 
+const EXPERT_MODEL = "deepseek/deepseek-flash";
 const ORCHESTRATOR_FILE = join(".pi", "agents", "pi-pi", "pi-orchestrator.md");
 const LANG_RULE_FILE = join(".pi", "agents", "pi-pi-cn", "lang-cn.md");
 
@@ -319,9 +320,8 @@ export default function (pi: ExtensionAPI) {
 			updateWidget();
 		}, 1000);
 
-		const model = ctx.model
-			? `${ctx.model.provider}/${ctx.model.id}`
-			: "openrouter/google/gemini-3-flash-preview";
+		// 专家固定用 DeepSeek Flash，不跟随主会话模型
+		const model = EXPERT_MODEL;
 
 		const langRule = readPromptBody(join(ctx.cwd, LANG_RULE_FILE)) ?? "";
 

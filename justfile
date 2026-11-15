@@ -1,5 +1,5 @@
 # Base pi command: no auto-discovered extensions/skills (explicit -e paths still load)
-pi := "pi --no-extensions --no-skills"
+pi := "pi --no-extensions --no-skills --model deepseek/deepseek-flash"
 
 default:
     @just --list
